@@ -13,12 +13,13 @@ import com.shubham.agr.roomexample.models.User;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
-    private ArrayList<User> users;
+    private List<User> users;
 
-    public ContactAdapter(ArrayList<User> users) {
+    public ContactAdapter(List<User> users) {
         this.users = users;
     }
 

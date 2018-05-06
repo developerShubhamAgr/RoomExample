@@ -1,10 +1,14 @@
 package com.shubham.agr.roomexample;
 
+import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
+
+import com.shubham.agr.roomexample.models.User;
 
 public class CreateUserActivity extends AppCompatActivity {
 
@@ -19,9 +23,21 @@ public class CreateUserActivity extends AppCompatActivity {
 
         initVars();
 
+        AppDatabase db = Room.databaseBuilder(getApplicationContext(),AppDatabase.class,"production")
+            .allowMainThreadQueries()
+            .build();
+
         btn_create_contact.setOnClickListener(v->{
             Log.d(TAG, "onCreate: Create Contact Button Clicked");
 
+            User user = new User(
+                et_firstName.getText().toString(),
+                et_lastName.getText().toString(),
+                et_phone.getText().toString()
+            );
+            db.userDao().insertAll(user);
+
+            startActivity(new Intent(CreateUserActivity.this, MainActivity.class));
         });
     }
 

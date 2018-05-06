@@ -10,21 +10,31 @@
 
     <EditText
         android:id="@+id/et_fistname"
-        android:hint="@string/txt_firstName"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:inputType="textCapWords"
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_firstName" />
 
     <EditText
         android:id="@+id/et_lastname"
-        android:hint="@string/txt_lastName"
+        android:inputType="textCapWords"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_lastName" />
 
     <EditText
         android:id="@+id/et_phoneNumber"
-        android:hint="@string/txt_lastName"
+        android:inputType="phone"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_phone" />
+
+    <EditText
+        android:id="@+id/et_email"
+        android:inputType="textEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/txt_email" />
 
     <Button
         android:id="@+id/btn_add_contact"
