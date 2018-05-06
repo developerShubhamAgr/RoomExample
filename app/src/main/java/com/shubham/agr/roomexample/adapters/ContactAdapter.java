@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.shubham.agr.roomexample.R;
+import com.shubham.agr.roomexample.models.User;
 
 import org.w3c.dom.Text;
 
@@ -15,9 +16,9 @@ import java.util.ArrayList;
 
 public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactViewHolder> {
 
-    private ArrayList<String> users;
+    private ArrayList<User> users;
 
-    public ContactAdapter(ArrayList<String> users) {
+    public ContactAdapter(ArrayList<User> users) {
         this.users = users;
     }
 
@@ -30,7 +31,10 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
 
     @Override
     public void onBindViewHolder(@NonNull ContactViewHolder holder, int position) {
-        holder.tv_name.setText(users.get(position));
+        User user = users.get(position);
+        String name = String.format("%s %s",user.getFirstName(),user.getLastName());
+        holder.tv_name.setText(name);
+        holder.tv_phone.setText(user.getPhoneNumber());
     }
 
     @Override
@@ -39,10 +43,11 @@ public class ContactAdapter extends RecyclerView.Adapter<ContactAdapter.ContactV
     }
 
     public class ContactViewHolder extends RecyclerView.ViewHolder {
-        private TextView tv_name;
+        private TextView tv_name,tv_phone;
         public ContactViewHolder(View itemView) {
             super(itemView);
             tv_name = itemView.findViewById(R.id.tv_name);
+            tv_phone = itemView.findViewById(R.id.tv_phone);
         }
     }
 }
