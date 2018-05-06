@@ -21,7 +21,7 @@ public class CreateUserActivity extends AppCompatActivity {
 
         btn_create_contact.setOnClickListener(v->{
             Log.d(TAG, "onCreate: Create Contact Button Clicked");
-            
+
         });
     }
 
