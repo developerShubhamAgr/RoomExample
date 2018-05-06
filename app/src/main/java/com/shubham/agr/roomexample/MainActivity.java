@@ -18,12 +18,14 @@ import com.shubham.agr.roomexample.models.User;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements ContactAdapter.onClickListner {
 
     FloatingActionButton fab;
     RecyclerView recyclerView;
     ContactAdapter adapter;
     ArrayList<User> users;
+
+    private AppDatabase db;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -33,37 +35,40 @@ public class MainActivity extends AppCompatActivity {
 
         initVars();
 
-/*
-        users = new ArrayList<>();
-        for (int i = 0; i < 100; i++) {
-            User user = new User("Sugam ", "Pradhan " +i,"9806583297");
-            users.add(user);
-        }
-*/
-
-        AppDatabase db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class,"production")
+        db = Room.databaseBuilder(getApplicationContext(), AppDatabase.class, "production")
             .allowMainThreadQueries()
             .build();
-
-        List<User> users = db.userDao().getAllUsers();
-
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        adapter = new ContactAdapter(users);
-        recyclerView.setAdapter(adapter);
-
 
         fab.setOnClickListener(v -> {
             Log.d(TAG, "onCreate: FAB Pressed");
             Intent intent = new Intent(MainActivity.this, CreateUserActivity.class);
             startActivity(intent);
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getDataFromDb();
+    }
+
+    private void getDataFromDb() {
+        List<User> users = db.userDao().getAllUsers();
 
 
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adapter = new ContactAdapter(MainActivity.this, users,this);
+        recyclerView.setAdapter(adapter);
     }
 
     private void initVars() {
         fab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.recyclerView);
+    }
+
+    @Override
+    public void onClickUser(User user) {
+        Log.d(TAG, "onClickUser: USER"+user.getFirstName());
+        db.userDao().deleteUser(user);
     }
 }
