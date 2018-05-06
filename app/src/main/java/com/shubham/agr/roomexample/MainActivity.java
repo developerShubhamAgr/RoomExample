@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         users = new ArrayList<>();
         for (int i = 0; i < 100; i++) {
-            User user = new User("Sugam" +i, "Pradhan","9806583297");
+            User user = new User("Sugam ", "Pradhan " +i,"9806583297");
             users.add(user);
         }
 
