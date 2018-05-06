@@ -13,12 +13,14 @@ import android.widget.Toast;
 
 import com.shubham.agr.roomexample.adapters.ContactAdapter;
 
+import java.util.ArrayList;
+
 public class MainActivity extends AppCompatActivity {
 
     FloatingActionButton fab;
     RecyclerView recyclerView;
     ContactAdapter adapter;
-
+    ArrayList<String> users;
     private static final String TAG = "MainActivity";
 
     @Override
@@ -27,12 +29,19 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         initVars();
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-        adapter = new ContactAdapter();
+
+        users = new ArrayList<>();
+        for (int i = 0; i < 100; i++) {
+            users.add("Daniel #" + i);
+        }
+
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        adapter = new ContactAdapter(users);
         recyclerView.setAdapter(adapter);
 
 
-        fab.setOnClickListener(v->{
+        fab.setOnClickListener(v -> {
             Log.d(TAG, "onCreate: FAB Pressed");
             Intent intent = new Intent(MainActivity.this, CreateUserActivity.class);
             startActivity(intent);
